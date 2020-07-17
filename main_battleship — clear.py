@@ -54,9 +54,8 @@ class Field(object):
 	# TODO make it to check if inputs and position of new ship are correct
 	# and it is possible before placing it to the field
 	def get_ships_from_player(self, current_player):
-		while self.number_of_ships < 5:
+		while self.number_of_ships < 2:
 			os.system("clear")
-			print(self.number_of_ships)
 			ship = {}
 			print(current_player.name.capitalize(), "'s field: ")
 			self.print_field_with_ships()
