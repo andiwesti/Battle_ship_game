@@ -1,19 +1,16 @@
 import random
 import os
 
-
 class Field(object):
-	def __init__(self, size=100, number_of_ships=0):
-		self.size = size
+	def __init__(self, number_of_ships=0):
 		self.number_of_ships = number_of_ships
-		self.ships = []
+		self.ships = []  #list of player's ships
 		self.field = ['[ ]' for i in range(100)]
 		self.coordinates_field = []  # list of coordinates, creating below
 		self.statuses = [False for i in self.field]
 
 		''' Making list with coordinates
 		like a0, b0, c0, etc'''
-
 		letters = 'a b c d e f g h i j'.split()
 		self.coordinates_field += letters * 10
 		nums = '0123456789'
@@ -45,22 +42,6 @@ class Field(object):
 			elif cell == '[X]':
 				field_with_known_ships.append('[ ]')
 
-		'''for j, i in enumerate(self.field):
-			if i == '[X]':
-				field_with_known_ships.append('[ ]')
-			elif i == '[X]' and self.statuses[j]:#i == '[O]':
-				for ship in self.ships:
-					for element in ship:
-						print(element)
-						if element == self.coordinates_field[self.field.index(i)]:
-							print(ship[element])
-							print(self.coordinates_field[self.field.index(i)])
-							field_with_known_ships.append('[O]')
-			elif i == '[ ]':
-				field_with_known_ships.append(i)
-			elif i == '[ ]' and self.statuses[j]:
-				print('ok')
-				field_with_known_ships.append(['[-]'])'''
 		print('     a      b      c      d      e      f      g      h      i      j')
 		for i in range(0, 100, 10):
 			print(str(i)[0], field_with_known_ships[i:i + 10], end='\n')
@@ -74,17 +55,6 @@ class Field(object):
 			ship = {}
 			print(current_player.name.capitalize(), "'s field: ")
 			self.print_field_with_ships()
-			'''one_deck_ships = []
-			two_decks_ships = []
-			three_decks_ships = []
-			four_decks_ship = []
-			
-			def print_no_more_ships_text():'''
-				#print('You can add only:\n'
-				#	'4 ships of lenght 1\n'
-					#'3 ships of lenght 2\n'
-					#'2 ships of lenght 3\n'
-					#'1 ships of lenght 4
 
 			while True:
 				text = 'abcdefghij0123456789'
@@ -125,7 +95,6 @@ class Field(object):
 						self.field[self.coordinates_field.index(i)] = '[X]'
 					self.ships.append(ship)
 
-
 class ShotAt(object):
 	def __init__(self, current_player, opponent):
 		self.current_player = current_player
@@ -161,20 +130,13 @@ class ShotAt(object):
 				for element in ship:
 					if element == position:
 						ship[position] = '[X]'
-			#self.opponent.field.field[self.opponent.field.coordinates_field.index(position)] = '[O]'
 			self.opponent.field.statuses[self.opponent.field.coordinates_field.index(position)] = True
 			if shot.is_ship_dead():
 				self.opponent.field.number_of_ships -= 1
-				#print(self.opponent.field.number_of_ships)
 			if not is_game_finished(player1, player2):
 				shot.shot(shot, player1, player2)
 		elif self.opponent.field.field[self.opponent.field.coordinates_field.index(position)] == '[ ]':
-			#self.opponent.field.field[self.opponent.field.coordinates_field.index(position)] = '[-]'
 			self.opponent.field.statuses[self.opponent.field.coordinates_field.index(position)] = True
-		'''elif self.opponent.field.field[self.opponent.field.coordinates_field.index(position)] == '[O]' or self.opponent.field.field[self.opponent.field.coordinates_field.index(position)] == '[-]':
-			print('You have already shot here!')
-			input('Press Enter to continue')
-			shot.shot(shot, player1, player2)'''
 
 	def is_ship_dead(self):
 		dead = 0
@@ -188,17 +150,6 @@ class ShotAt(object):
 		else:
 			return False
 
-				#return True
-			#else:
-				#return False
-#
-				#dead = True
-	#	if dead:
-		#	self.opponent.field.number_of_ships -= 1
-
-
-
-
 class Player(object):
 	def __init__(self, name, field):
 		self.name = name
@@ -209,42 +160,6 @@ class Player(object):
 		print('     a      b      c      d      e      f      g      h      i      j')
 		for i in range(0, 100, 10):
 			print(str(i)[0], self.clear_field[i:i + 10])
-
-
-'''class Ships(object):
-	def __init__(self):
-		self.ships = []
-	def get_ships_from_player(self, player):
-		counter = 0
-		while counter <= 2:
-			ship = []
-			player.field.print_field_with_ships()
-			x, y = input('Please input coordinates of the ship: ')
-			lenght = int(input('Please, choose lenght of the ship: '))
-			orientation = input('Please, choose orientation of the ship horizontal[h] or vertical[v]')
-			# какая то херня, надо все переделать(
-			for i in player.field.coordinates_field:
-				if x in i and y in i:
-					ship.append(i)
-					cell = player.field.coordinates_field.index(i) #index of i (the first element of the ship)
-					if orientation == 'h':
-						for i in list(enumerate(range(1, lenght +1))):
-
-							
-
-						for index, value in enumerate(list(range(1, lenght + 1))):
-							cell = player.field.coordinates_field.index(i) + value
-							ship.append(cell)
-							self.ships.append(ship)
-							counter += 1'''
-
-# '''корабли буду хранить в виде списка списков, где каждый список это корабль,
-# этот список будет состоять из н элементов где колличество н это длинна корабля, а
-# каждый элемент будет в виде а1, как в поле координат, и собстевнно обозначать координату
-# каждой ячейки корабля'''
-
-'''Main game logic and some functions'''
-
 
 # This will check is where all opponents ships were killed
 def is_game_finished(player1, player2):
