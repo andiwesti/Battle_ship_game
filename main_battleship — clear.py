@@ -9,6 +9,11 @@ class Field(object):
 		self.coordinates_field = []  # list of coordinates, creating below
 		self.statuses = [False for i in self.field]
 
+		self.len_one_ships = []
+		self.len_two_ships = []
+		self.len_three_ships = []
+		self.len_four_ships = []
+
 		''' Making list with coordinates
 		like a0, b0, c0, etc'''
 		letters = 'a b c d e f g h i j'.split()
@@ -49,12 +54,12 @@ class Field(object):
 	# TODO make it to check if inputs and position of new ship are correct
 	# and it is possible before placing it to the field
 	def get_ships_from_player(self, current_player):
-		while self.number_of_ships < 3:
+		while self.number_of_ships < 2:
 			os.system("clear")
-			print(self.number_of_ships)
 			ship = {}
 			print(current_player.name.capitalize(), "'s field: ")
 			self.print_field_with_ships()
+
 
 			while True:
 				text = 'abcdefghij0123456789'
@@ -70,9 +75,41 @@ class Field(object):
 				except:
 					print('Incorrect coordinates, try again')
 					continue
-			lenght = int(input('Please, choose lenght of the ship: '))
+
+			while True:
+				try:
+					lenght = int(input('Please, choose lenght of the ship: '))
+					break
+				except:
+					print('Incorrect input')
+					continue
+
 			while not lenght or lenght > 4:
-				lenght = int(input('Try again, length can not be more then 4: '))
+				try:
+					lenght = int(input('Try again, lenght can not be more then 4: '))
+				except:
+					print('Incorrect input')
+					continue
+
+			while len(self.len_one_ships) >= 4 and lenght == 1 or len(self.len_two_ships) >= 3 and lenght == 2 or len(self.len_three_ships) >= 2 and lenght == 3 or len(self.len_four_ships) >= 1 and lenght == 4:
+				print('You can add only:\n'
+					'4 ships of lenght 1\n'
+					'3 ships of lenght 2\n'
+					'2 ships of lenght 3\n'
+					'1 ships of lenght 4')
+				while True:
+					try:
+						lenght = int(input('Try again: '))
+						break
+					except:
+						print('Incorrect input')
+						continue
+
+			self.len_one_ships.append(1) if lenght == 1 else None
+			self.len_two_ships.append(1) if lenght == 2 else None
+			self.len_three_ships.append(1) if lenght == 3 else None 
+			self.len_four_ships.append(1) if lenght == 4 else None
+
 			orientation = input('Please, choose orientation of the ship horizontal[h] or vertical[v]')
 
 			for i in self.coordinates_field:
@@ -196,6 +233,7 @@ def switch_player(current_player, player1, player2):
 		if choise_or_coin.lower() == 'f':
 			current_player = random.choice([player1, player2])
 			print(current_player.name.capitalize(), 'is the first!')
+			input('Press Enter to start placing ships')
 			return current_player
 
 
