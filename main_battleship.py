@@ -1,6 +1,6 @@
 import random
 import os
-# comment
+# comment2
 class Field(object):
 	def __init__(self, number_of_ships=0):
 		self.number_of_ships = number_of_ships
