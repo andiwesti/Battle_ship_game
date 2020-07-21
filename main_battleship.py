@@ -1,6 +1,6 @@
 import random
 import os
-
+# comment
 class Field(object):
 	def __init__(self, number_of_ships=0):
 		self.number_of_ships = number_of_ships
@@ -25,7 +25,7 @@ class Field(object):
 		for i, j in enumerate(nums_list):
 			self.coordinates_field[i] += str(j)
 
-	def print_field_with_ships(self): 
+	def print_field_with_ships(self):
 		print('  a b c d e f g h i j')
 		for i in range(0, 100, 10):
 			print(str(i)[0], 'I'.join(self.field[i:i + 10]))
@@ -105,7 +105,7 @@ class Field(object):
 
 			self.len_one_ships.append(1) if lenght == 1 else None
 			self.len_two_ships.append(1) if lenght == 2 else None
-			self.len_three_ships.append(1) if lenght == 3 else None 
+			self.len_three_ships.append(1) if lenght == 3 else None
 			self.len_four_ships.append(1) if lenght == 4 else None
 
 			orientation = input('Please, choose orientation of the ship horizontal[h] or vertical[v]')
